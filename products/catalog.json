@@ -1,0 +1,104 @@
+
+[
+    {
+        "id": "SHOE-001",
+        "name": "Chaussures cuir homme Dakar",
+        "category": "chaussures homme",
+        "description": "Chaussures élégantes en cuir véritable, idéales pour le bureau ou les événements formels.",
+        "price": 45000,
+        "currency": "XOF",
+        "in_stock": true,
+        "stock_quantity": 12
+    },
+    {
+        "id": "SHOE-002",
+        "name": "Chaussures ville homme marron",
+        "category": "chaussures homme",
+        "description": "Chaussures de ville confortables avec semelle antidérapante.",
+        "price": 38000,
+        "currency": "XOF",
+        "in_stock": true,
+        "stock_quantity": 8
+    },
+    {
+        "id": "BASK-001",
+        "name": "Baskets sport homme Urban",
+        "category": "baskets homme",
+        "description": "Baskets légères et respirantes, parfaites pour le sport et le quotidien.",
+        "price": 32000,
+        "currency": "XOF",
+        "in_stock": true,
+        "stock_quantity": 15
+    },
+    {
+        "id": "BASK-002",
+        "name": "Baskets streetwear noires",
+        "category": "baskets homme",
+        "description": "Baskets modernes au design streetwear, faciles à assortir.",
+        "price": 35000,
+        "currency": "XOF",
+        "in_stock": true,
+        "stock_quantity": 10
+    },
+    {
+        "id": "CLOT-001",
+        "name": "Chemise homme coton premium",
+        "category": "vêtements homme",
+        "description": "Chemise élégante en coton doux, adaptée au climat chaud.",
+        "price": 18000,
+        "currency": "XOF",
+        "in_stock": true,
+        "stock_quantity": 20
+    },
+    {
+        "id": "CLOT-002",
+        "name": "Polo homme casual",
+        "category": "vêtements homme",
+        "description": "Polo confortable pour un style décontracté mais soigné.",
+        "price": 15000,
+        "currency": "XOF",
+        "in_stock": true,
+        "stock_quantity": 25
+    },
+    {
+        "id": "CLOT-003",
+        "name": "T-shirt homme basique",
+        "category": "vêtements homme",
+        "description": "T-shirt simple et résistant pour un usage quotidien.",
+        "price": 8000,
+        "currency": "XOF",
+        "in_stock": true,
+        "stock_quantity": 30
+    },
+    {
+        "id": "CAP-001",
+        "name": "Casquette classique noire",
+        "category": "casquettes",
+        "description": "Casquette ajustable, idéale pour le soleil et les sorties quotidiennes.",
+        "price": 6000,
+        "currency": "XOF",
+        "in_stock": true,
+        "stock_quantity": 40
+    },
+    {
+        "id": "CAP-002",
+        "name": "Casquette sport respirante",
+        "category": "casquettes",
+        "description": "Casquette légère avec tissu respirant pour activités sportives.",
+        "price": 7000,
+        "currency": "XOF",
+        "in_stock": true,
+        "stock_quantity": 18
+    },
+    {
+        "id": "CAP-003",
+        "name": "Casquette street style",
+        "category": "casquettes",
+        "description": "Casquette tendance pour un look urbain moderne.",
+        "price": 9000,
+        "currency": "XOF",
+        "in_stock": true,
+        "stock_quantity": 14
+    }
+  ]
+  
