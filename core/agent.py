@@ -1,9 +1,10 @@
 from mistralai import Mistral
-from core.prompt import SYSTEM_PROMPT
+from core.prompt import SYSTEM_PROMPT,SUGGESTION_PROMPT
 from core.router import route_intent
 from core.memory import ConversationMemory
 from tools.search_products import search_products
 from config.settings import MISTRAL_API_KEY
+
 
 
 
@@ -13,39 +14,41 @@ class CommercialAgent:
         self.memory = ConversationMemory()
 
     def run(self, user_input: str) -> str:
+        # 1️⃣ Mémoire
         self.memory.add("user", user_input)
+
+        # 2️⃣ Détection d’intention
         intent = route_intent(user_input)
 
+        # 3️⃣ Messages de base
+        messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+        messages += self.memory.get()
+
+        # 4️⃣ Si besoin d’un tool → enrichir le contexte
         if intent == "product_search":
-            products = search_products(user_input)
+            context = search_products(user_input)
 
-            if not products:
-                answer = "Désolé, aucun produit correspondant n’est disponible actuellement."
-                self.memory.add("assistant", answer)
-                return answer
+            if context:
+                messages.append({
+                    "role": "system",
+                    "content": f"CONTEXTE PRODUITS DISPONIBLES :\n{context}"
+                })
 
-            # ✅ Accès par attributs Product
-            context_text = products
+        # 5️⃣ Ajouter prompt de suggestion
+        messages.append({"role": "system", "content": SUGGESTION_PROMPT})
 
-            messages = [
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {
-                    "role": "user",
-                    "content": f"QUESTION : {user_input}\n\nCONTEXTE PRODUITS :\n{context_text}"
-                }
-            ]
+        # 6️⃣ Ajouter la question utilisateur
+        messages.append({"role": "user", "content": user_input})
 
-        else:
-            # Conversation libre
-            context_messages = [{"role": "system", "content": SYSTEM_PROMPT}] + self.memory.get()
-            context_messages.append({"role": "user", "content": user_input})
-            messages = context_messages
-
+        # 7️⃣ Appel LLM
         response = self.client.chat.complete(
             model="mistral-small-latest",
             messages=messages
         )
 
         answer = response.choices[0].message.content
+
+        # 8️⃣ Mémoire
         self.memory.add("assistant", answer)
+
         return answer
