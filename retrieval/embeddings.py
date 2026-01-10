@@ -1,5 +1,4 @@
 
-#from langchain_community.embeddings import SentenceTransformerEmbeddings
 from langchain_huggingface import HuggingFaceEmbeddings
 from config.settings import EMBEDDING_MODEL_NAME
 

@@ -23,6 +23,10 @@ def ingest():
         text = f"{product.name}. {product.description}. {product.category}"
         vector = embeddings_model.embed_query(text)
 
+
+        
+   
+
         # Construire le dictionnaire conforme Pinecone v8
         vectors.append({
             "id": str(product.id),
@@ -35,7 +39,8 @@ def ingest():
                 "price": product.price,
                 "currency": product.currency,
                 "in_stock": product.in_stock,
-                "stock_quantity": product.stock_quantity
+                "stock_quantity": product.stock_quantity,
+                
             }
         })
 

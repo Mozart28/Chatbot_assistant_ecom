@@ -14,3 +14,4 @@ class Product:
     in_stock: bool
     stock_quantity: Optional[int] = None
     
+    

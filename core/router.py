@@ -1,23 +1,23 @@
 
 from mistralai import Mistral
 from config.settings import MISTRAL_API_KEY
+from core.prompt import SYSTEM_PROMPT
 
 client = Mistral(api_key=MISTRAL_API_KEY)
 
-INTENT_PROMPT = """
-Tu es un classificateur d'intentions pour un assistant e-commerce.
+INTENTS = [
+    "product_search",
+    "product_image",
+    "request_contact",
+    "chat"
+]
 
-Catégories possibles :
-- product_search
-- chat
-- unknown
+CONTACT_SIGNAL = "CONTACT_REQUEST_CONFIRMED"
 
-Réponds uniquement par le nom de la catégorie.
-"""
 
 def route_intent_llm(user_input: str) -> str:
     messages = [
-        {"role": "system", "content": INTENT_PROMPT},
+        {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": user_input}
     ]
 
@@ -40,13 +40,34 @@ def route_intent_llm(user_input: str) -> str:
 def route_intent(user_input: str) -> str:
     text = user_input.lower()
 
+    contact_keywords = [
+        "oui", "yes", "d'accord", "ok",
+        "contact", "conseiller", "agent",
+        "téléphone", "whatsapp", "email","humain","un commercial","numéro"
+    ]
+
+    if any(k in text for k in contact_keywords):
+        return "request_contact"
+
     fast_keywords = [
         "prix", "acheter", "commande", "disponible",
         "baskets", "chaussures", "t-shirt", "casquette"
     ]
+    
 
     if any(k in text for k in fast_keywords):
         return "product_search"
+
+    image_keywords = [
+    "photo", "image", "voir", "montre", "à quoi ressemble",
+    "apparence", "picture"
+]
+  
+    if any(k in text for k in image_keywords):
+        return "product_image"
+
+
+
 
     return route_intent_llm(user_input)
 
