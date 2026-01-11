@@ -1,4 +1,3 @@
-
 from dataclasses import dataclass
 from typing import Optional
 
@@ -13,5 +12,4 @@ class Product:
     currency: str
     in_stock: bool
     stock_quantity: Optional[int] = None
-    
-    
+    image_url: Optional[str] = None

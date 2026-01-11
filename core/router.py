@@ -51,7 +51,8 @@ def route_intent(user_input: str) -> str:
 
     fast_keywords = [
         "prix", "acheter", "commande", "disponible",
-        "baskets", "chaussures", "t-shirt", "casquette"
+        "baskets", "chaussures", "t-shirt", "casquette","t shirt","baskets",
+        "chemises","polo"
     ]
     
 
@@ -62,7 +63,7 @@ def route_intent(user_input: str) -> str:
     "photo", "image", "voir", "montre", "à quoi ressemble",
     "apparence", "picture"
 ]
-  
+
     if any(k in text for k in image_keywords):
         return "product_image"
 

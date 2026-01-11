@@ -1,4 +1,3 @@
-
 import streamlit as st
 from core.agent import CommercialAgent
 from config.settings import APP_NAME
@@ -14,7 +13,7 @@ st.set_page_config(
 st.title("🛒 Assistant Commercial IA")
 st.caption("Je vous propose uniquement des produits disponibles dans notre catalogue.")
 
-# --- Init agent (une seule fois) ---
+# --- Init agent ---
 if "agent" not in st.session_state:
     st.session_state.agent = CommercialAgent()
 
@@ -39,13 +38,47 @@ if user_input:
     with st.chat_message("user"):
         st.markdown(user_input)
 
-    # Agent response
+    # Appel agent
     with st.chat_message("assistant"):
-        with st.spinner("Recherche de produits disponibles..."):
+        with st.spinner("Recherche en cours..."):
             response = st.session_state.agent.run(user_input)
-            st.markdown(response)
 
-    st.session_state.messages.append({
-        "role": "assistant",
-        "content": response
-    })
+            # 🔹 CAS STRUCTURÉ (dict)
+            if isinstance(response, dict):
+
+                # 🖼 IMAGE PRODUIT
+                if response["type"] == "product_image":
+                    product = response["product"]
+
+                    st.subheader(product["name"])
+                    st.image(product["image_url"], use_container_width=True)
+
+                    if product.get("price"):
+                        st.markdown(f"💰 **Prix :** {product['price']} FCFA")
+
+                    if product.get("in_stock"):
+                        st.success("✅ En stock")
+                    else:
+                        st.warning("❌ Rupture de stock")
+
+                    # Sauvegarde texte pour l’historique
+                    st.session_state.messages.append({
+                        "role": "assistant",
+                        "content": f"🖼️ {product['name']} — {product['price']} FCFA"
+                    })
+
+                # 💬 TEXTE
+                elif response["type"] == "text":
+                    st.markdown(response["message"])
+                    st.session_state.messages.append({
+                        "role": "assistant",
+                        "content": response["message"]
+                    })
+
+            # 🔹 CAS TEXTE SIMPLE
+            else:
+                st.markdown(response)
+                st.session_state.messages.append({
+                    "role": "assistant",
+                    "content": response
+                })

@@ -40,6 +40,7 @@ def ingest():
                 "currency": product.currency,
                 "in_stock": product.in_stock,
                 "stock_quantity": product.stock_quantity,
+                "image_url":product.image_url
                 
             }
         })
