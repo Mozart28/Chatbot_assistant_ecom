@@ -41,7 +41,7 @@ def route_intent(user_input: str) -> str:
     text = user_input.lower()
 
     contact_keywords = [
-        "oui", "yes", "d'accord", "ok",
+        "d'accord", 
         "contact", "conseiller", "agent",
         "téléphone", "whatsapp", "email","humain","un commercial","numéro"
     ]
@@ -52,7 +52,7 @@ def route_intent(user_input: str) -> str:
     fast_keywords = [
         "prix", "acheter", "commande", "disponible",
         "baskets", "chaussures", "t-shirt", "casquette","t shirt","baskets",
-        "chemises","polo"
+        "chemises","polo","oui"
     ]
     
 
