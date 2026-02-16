@@ -1,6 +1,6 @@
 import os
 from catalog.loader import load_catalog
-from retrieval.embeddings import get_embeddings
+from retrieval.embeddings import EmbeddingModel
 from retrieval.vectorstore import PineconeVectorStore
 
 def ingest():
@@ -11,7 +11,7 @@ def ingest():
         return
 
     # --- Initialiser embeddings ---
-    embeddings_model = get_embeddings()
+    embeddings_model = EmbeddingModel()
     
     # --- Créer PineconeVectorStore et recréer l'index propre ---
     store = PineconeVectorStore(recreate_index=True)
@@ -19,30 +19,29 @@ def ingest():
     # --- Préparer les vecteurs pour Pinecone ---
     vectors = []
     for product in products:
-        # Combinaison texte pour embeddings
+        # Texte combiné pour E5/BGE
         text = f"{product.name}. {product.description}. {product.category}"
-        vector = embeddings_model.embed_query(text)
+        vector = embeddings_model.embed_passage(text)
 
+        # Metadata complète + "type" pour filtrage Pinecone
+        metadata = {
+            "id": str(product.id),
+            "name": product.name,
+            "category": product.category,
+            "description": product.description,
+            "price": product.price,
+            "currency": product.currency,
+            "in_stock": product.in_stock,
+            "stock_quantity": product.stock_quantity,
+            "image_url": product.image_url,
+            "type": "product"  # ✅ indispensable
+        }
 
-        
-   
-
-        # Construire le dictionnaire conforme Pinecone v8
+        # Construire le dictionnaire pour Pinecone
         vectors.append({
             "id": str(product.id),
             "values": vector,
-            "metadata": {
-                "id": product.id,
-                "name": product.name,
-                "category": product.category,
-                "description": product.description,
-                "price": product.price,
-                "currency": product.currency,
-                "in_stock": product.in_stock,
-                "stock_quantity": product.stock_quantity,
-                "image_url":product.image_url
-                
-            }
+            "metadata": metadata
         })
 
     # --- Injection dans Pinecone ---

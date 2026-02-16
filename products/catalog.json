@@ -1,5 +1,5 @@
 [
-    {
+  {
     "id": "SHOE-001",
     "name": "Chaussures cuir homme Dakar",
     "category": "chaussures homme",
@@ -8,9 +8,9 @@
     "currency": "XOF",
     "in_stock": true,
     "stock_quantity": 12,
-    "image_url": "https://images.unsplash.com/photo-1618354691373-9e3a2b6f6f1c"
-    },
-    {
+    "image_url": "https://i.roamcdn.net/hz/ed/listing-gallery-full-1920w/2e47850e4ba610f9b3d791c2d7cce522/-/horizon-files-prod/ed/picture/qng5vpew/f15fa7ca6df192b54cf390e993cb6ccb327ed300.jpg"
+  },
+  {
     "id": "SHOE-002",
     "name": "Chaussures ville homme marron",
     "category": "chaussures homme",
@@ -20,8 +20,8 @@
     "in_stock": true,
     "stock_quantity": 8,
     "image_url": "https://images.unsplash.com/photo-1605733160314-4fc7dac4bb16"
-    },
-    {
+  },
+  {
     "id": "BASK-001",
     "name": "Baskets sport homme Urban",
     "category": "baskets homme",
@@ -31,8 +31,8 @@
     "in_stock": true,
     "stock_quantity": 15,
     "image_url": "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77"
-    },
-    {
+  },
+  {
     "id": "BASK-002",
     "name": "Baskets streetwear noires",
     "category": "baskets homme",
@@ -41,9 +41,9 @@
     "currency": "XOF",
     "in_stock": true,
     "stock_quantity": 10,
-    "image_url": "https://images.unsplash.com/photo-1549298916-b41d501d3772"
-    },
-    {
+    "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeVlxBuQxnPeLvaDbOhBtOvfNdq_C-7W0Rrg&s"
+  },
+  {
     "id": "CLOT-001",
     "name": "Chemise homme coton premium",
     "category": "vêtements homme",
@@ -53,19 +53,19 @@
     "in_stock": true,
     "stock_quantity": 20,
     "image_url": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c"
-    },
-    {
+  },
+  {
     "id": "CLOT-002",
     "name": "Polo homme casual",
-    "category": "vêtements homme", 
+    "category": "vêtements homme",
     "description": "Polo confortable pour un style décontracté mais soigné.",
     "price": 15000,
     "currency": "XOF",
     "in_stock": true,
     "stock_quantity": 25,
-    "image_url": "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633"
-    },
-    {
+    "image_url": "https://www.habipro.fr/upload/produit/0290/16315-polo-homme-casual-mc.jpg"
+  },
+  {
     "id": "CLOT-003",
     "name": "T-shirt homme basique",
     "category": "vêtements homme",
@@ -75,8 +75,8 @@
     "in_stock": true,
     "stock_quantity": 30,
     "image_url": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab"
-    },
-    {
+  },
+  {
     "id": "CAP-001",
     "name": "Casquette classique noire",
     "category": "casquettes",
@@ -86,19 +86,19 @@
     "in_stock": true,
     "stock_quantity": 40,
     "image_url": "https://images.unsplash.com/photo-1521369909029-2afed882baee"
-    },
-    {
+  },
+  {
     "id": "CAP-002",
     "name": "Casquette sport respirante",
     "category": "casquettes",
     "description": "Casquette légère avec tissu respirant pour activités sportives.",
     "price": 7000,
     "currency": "XOF",
-    "in_stock": true,
+    "in_stock": false,
     "stock_quantity": 18,
-    "image_url": "https://images.unsplash.com/photo-1593032465175-481ac7f401a0"
-    },
-    {
+    "image_url": "https://m.media-amazon.com/images/I/51BQ9SQLYGL._AC_UY1000_.jpg"
+  },
+  {
     "id": "CAP-003",
     "name": "Casquette street style",
     "category": "casquettes",
@@ -107,6 +107,17 @@
     "currency": "XOF",
     "in_stock": true,
     "stock_quantity": 14,
-    "image_url": "https://images.unsplash.com/photo-1517941823-815bea90c5c0"
-    }
+    "image_url": "https://ae01.alicdn.com/kf/S733a65c2931f44b1ac9685979ab33866X.jpg_640x640q90.jpg"
+  },
+  {
+    "id": "AIR-001",
+    "name": "AIRMAX 400",
+    "category": "baskets",
+    "description": "Baskets sport class dernier model",
+    "price": 25000.0,
+    "currency": "FCFAIn_stock: True",
+    "in_stock": true,
+    "stock_quantity": 2,
+    "image_url": "https://noirfonce.eu/cdn/shop/files/Nike_Air_Max_Plus_Black_FN6949-400.jpg?v=1723383962"
+  }
 ]

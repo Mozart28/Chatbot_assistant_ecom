@@ -1,0 +1,28 @@
+[
+  {
+    "document_id": "doc_20260215_222547",
+    "filename": "test_nv_produits.pdf",
+    "document_type": "product_catalog",
+    "uploaded_by": "admin@smartshop.com",
+    "uploaded_at": "2026-02-15T22:26:28.807874",
+    "vector_count": 1,
+    "file_size": 68040,
+    "chunk_count": 1,
+    "extracted_products": 1,
+    "added_to_catalog": 1,
+    "catalog_updated": true
+  },
+  {
+    "document_id": "doc_20260215_224444",
+    "filename": "test_nv_produits.pdf",
+    "document_type": "product_catalog",
+    "uploaded_by": "admin@smartshop.com",
+    "uploaded_at": "2026-02-15T22:45:22.088795",
+    "vector_count": 1,
+    "file_size": 68040,
+    "chunk_count": 1,
+    "extracted_products": 1,
+    "added_to_catalog": 1,
+    "catalog_updated": true
+  }
+]

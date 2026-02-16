@@ -11,13 +11,15 @@ def filter_available_products(products: List[Product]) -> List[Product]:
 
 
 def products_to_context(products: List[Product]) -> str:
-    """
-    Convertit les produits en texte STRICT pour le LLM
-    """
+    if not products:
+        return "Aucun produit disponible."
+
     lines = []
     for p in products:
         lines.append(
-            f"- {p.name} | {p.category} | {p.price} {p.currency}\n"
-            f"  Description: {p.description}"
+            f"{p.name}\n"
+            f"  Prix: {p.price} {p.currency}\n"
+            
         )
     return "\n".join(lines)
+

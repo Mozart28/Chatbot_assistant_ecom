@@ -1,12 +1,14 @@
-
-from langchain_huggingface import HuggingFaceEmbeddings
 from config.settings import EMBEDDING_MODEL_NAME
+from sentence_transformers import SentenceTransformer
 
+class EmbeddingModel:
+    def __init__(self):
+        self.model = SentenceTransformer("intfloat/multilingual-e5-large")
 
-def get_embeddings():
-    """
-    Singleton embeddings model
-    """
-    return HuggingFaceEmbeddings(
-        model_name=EMBEDDING_MODEL_NAME
-    )
+    def embed_query(self, text: str):
+        text = f"query: {text}"
+        return self.model.encode(text, normalize_embeddings=True).tolist()
+
+    def embed_passage(self, text: str):
+        text = f"passage: {text}"
+        return self.model.encode(text, normalize_embeddings=True).tolist()

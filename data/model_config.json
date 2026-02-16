@@ -1,0 +1,7 @@
+{
+  "current_provider": "mistral",
+  "current_model": "mistral-small-latest",
+  "auto_switch_enabled": false,
+  "monthly_budget": 100.0,
+  "fallback_model": "open-mistral-7b"
+}
