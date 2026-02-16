@@ -1,0 +1,255 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { Menu, X } from 'lucide-react';
+import ChatMessage from './components/ChatMessage';
+import ChatInput from './components/ChatInput';
+import Sidebar from './components/Sidebar';
+import { chatAPI } from './services/api';
+import { generateId, scrollToBottom, storage } from './utils/helpers';
+import { cn } from './utils/helpers';
+
+import AdminDashboard from './components/AdminDashboard';
+
+// Add route
+<Route path="/admin" element={<AdminDashboard />} />
+
+function Chatbot() {
+  const [messages, setMessages] = useState([]);
+  const [cart, setCart] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [conversationId, setConversationId] = useState(null);
+  const messagesEndRef = useRef(null);
+
+  // Load persisted data on mount
+  useEffect(() => {
+    const savedMessages = storage.get('messages', []);
+    const savedCart = storage.get('cart', []);
+    
+    if (savedMessages.length > 0) {
+      setMessages(savedMessages);
+    } else {
+      // Welcome message
+      setMessages([
+        {
+          id: generateId(),
+          role: 'assistant',
+          content: '👋 Bonjour ! Je suis votre assistant SmartShop. Que recherchez-vous aujourd\'hui ?',
+          timestamp: new Date().toISOString(),
+        },
+      ]);
+    }
+    
+    setCart(savedCart);
+  }, []);
+
+  // Persist messages and cart
+  useEffect(() => {
+    storage.set('messages', messages);
+  }, [messages]);
+
+  useEffect(() => {
+    storage.set('cart', cart);
+  }, [cart]);
+
+  // Auto-scroll to bottom on new messages
+  useEffect(() => {
+    scrollToBottom('chat-container');
+  }, [messages]);
+
+  const handleSendMessage = async (userMessage) => {
+    if (!userMessage.trim()) return;
+
+    // Add user message
+    const userMsg = {
+      id: generateId(),
+      role: 'user',
+      content: userMessage,
+      timestamp: new Date().toISOString(),
+    };
+
+    setMessages((prev) => [...prev, userMsg]);
+    setIsLoading(true);
+
+    try {
+      // In production, replace this with actual API call
+      // const response = await chatAPI.sendMessage(userMessage, conversationId);
+      
+      // Mock response for demo
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      
+      const assistantMsg = {
+        id: generateId(),
+        role: 'assistant',
+        content: mockResponse(userMessage),
+        timestamp: new Date().toISOString(),
+      };
+
+      setMessages((prev) => [...prev, assistantMsg]);
+    } catch (error) {
+      console.error('Error sending message:', error);
+      
+      const errorMsg = {
+        id: generateId(),
+        role: 'assistant',
+        content: '❌ Désolé, une erreur s\'est produite. Veuillez réessayer.',
+        timestamp: new Date().toISOString(),
+      };
+      
+      setMessages((prev) => [...prev, errorMsg]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handlePhotoUpload = async (file) => {
+    console.log('Photo uploaded:', file);
+    
+    const msg = {
+      id: generateId(),
+      role: 'user',
+      content: '📷 Image envoyée',
+      timestamp: new Date().toISOString(),
+    };
+    
+    setMessages((prev) => [...prev, msg]);
+    
+    // Process image upload here
+    // await chatAPI.uploadImage(file);
+  };
+
+  const handleContactAgent = () => {
+    const msg = {
+      id: generateId(),
+      role: 'assistant',
+      content: '💬 Un agent commercial va prendre le relais.\n\n📞 Contactez-nous via WhatsApp ou email.\n\n✉️ contact@smartshop.com\n📱 +221 XX XXX XX XX',
+      type: 'CONTACT_AGENT',
+      timestamp: new Date().toISOString(),
+      rated: false,
+    };
+    
+    setMessages((prev) => [...prev, msg]);
+  };
+
+  const handleRate = async (messageId, rating) => {
+    try {
+      await chatAPI.submitRating(rating, messageId);
+      
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === messageId ? { ...msg, rating, rated: true } : msg
+        )
+      );
+    } catch (error) {
+      console.error('Error submitting rating:', error);
+    }
+  };
+
+  const handleNewOrder = () => {
+    setMessages([
+      {
+        id: generateId(),
+        role: 'assistant',
+        content: '👋 Nouvelle session ! Que puis-je vous proposer ?',
+        timestamp: new Date().toISOString(),
+      },
+    ]);
+    setCart([]);
+    setConversationId(null);
+  };
+
+  const handleClearCart = () => {
+    if (window.confirm('Voulez-vous vraiment vider le panier ?')) {
+      setCart([]);
+    }
+  };
+
+  const handleCheckout = () => {
+    alert('🎉 Commande envoyée ! Merci pour votre achat.');
+    setCart([]);
+  };
+
+  // Mock response generator (replace with actual API)
+  const mockResponse = (input) => {
+    const lower = input.toLowerCase();
+    
+    if (lower.includes('chemise')) {
+      return 'Voici notre sélection de chemises :\n\n1️⃣ Chemise Classique Blanche - 15,000 FCFA\n2️⃣ Chemise Slim Fit Bleue - 18,000 FCFA\n3️⃣ Chemise Oxford Rose - 16,500 FCFA\n\nLaquelle vous intéresse ? Ou souhaitez-vous voir des photos ?';
+    }
+    
+    if (lower.includes('chaussure')) {
+      return 'Parfait ! Nous avons :\n\n1️⃣ Sneakers Cuir Noir - 35,000 FCFA\n2️⃣ Mocassins Marron - 28,000 FCFA\n3️⃣ Derbies Classiques - 32,000 FCFA\n\nPour quelle occasion ? Bureau ou décontracté ?';
+    }
+    
+    return 'Je recherche les meilleurs produits pour vous... Pouvez-vous préciser votre besoin ?';
+  };
+
+  return (
+    <div className="flex h-screen bg-gray-50">
+      {/* Sidebar */}
+      <Sidebar
+        cart={cart}
+        onClearCart={handleClearCart}
+        onCheckout={handleCheckout}
+        onNewOrder={handleNewOrder}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
+
+      {/* Main Chat Area */}
+      <div className="flex-1 flex flex-col">
+        {/* Header */}
+        <header className="bg-white border-b border-gray-200 px-6 py-4 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold text-gradient">
+                🛒 Smart Shop
+              </h1>
+              <p className="text-sm text-gray-600 mt-1">
+                Trouvez, comparez et achetez avec l'IA
+              </p>
+            </div>
+
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="lg:hidden p-2 hover:bg-gray-100 rounded-lg"
+            >
+              {sidebarOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
+          </div>
+        </header>
+
+        {/* Messages Container */}
+        <div
+          id="chat-container"
+          className="flex-1 overflow-y-auto custom-scrollbar px-4 py-6 lg:px-8"
+        >
+          <div className="max-w-4xl mx-auto">
+            {messages.map((message) => (
+              <ChatMessage
+                key={message.id}
+                message={message}
+                onRate={(rating) => handleRate(message.id, rating)}
+              />
+            ))}
+            <div ref={messagesEndRef} />
+          </div>
+        </div>
+
+        {/* Input Area */}
+        <ChatInput
+          onSend={handleSendMessage}
+          onPhotoUpload={handlePhotoUpload}
+          onContactAgent={handleContactAgent}
+          isLoading={isLoading}
+        />
+      </div>
+    </div>
+  );
+}
+
+export default Chatbot;
