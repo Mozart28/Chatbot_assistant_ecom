@@ -248,9 +248,10 @@ if __name__ == '__main__':
     print("📡 Frontend should connect to: http://localhost:5002")
     print("🔧 CORS enabled for React frontend")
     print("")
-    
+    port = int(os.environ.get("PORT", 5002))
     app.run(
         host='0.0.0.0',
-        port=5002,
+        port=port,
         debug=True
     )
+
