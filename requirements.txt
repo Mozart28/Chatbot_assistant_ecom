@@ -74,8 +74,8 @@ pandas==2.3.3
 pdfminer.six==20251230
 pdfplumber
 pillow==12.1.0
-pinecone==3.0.0
-pinecone-client==3.0.0
+pinecone
+pinecone-client
 propcache==0.4.1
 protobuf==6.33.4
 pyarrow==22.0.0
