@@ -214,4 +214,11 @@ class DynamicLLMClient:
 
 
 # Global instance
-llm_client = DynamicLLMClient()
+_llm_client = None
+
+def get_llm_client():
+    global _llm_client
+    if _llm_client is None:
+        _llm_client = DynamicLLMClient()
+    return _llm_client
+

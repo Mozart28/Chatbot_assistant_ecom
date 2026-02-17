@@ -1,9 +1,9 @@
 
-import streamlit as st
+#import streamlit as st
 
 
 
-@st.cache_data
+#@st.cache_data
 def request_contact():
     return (
     

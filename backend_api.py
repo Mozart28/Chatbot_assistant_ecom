@@ -16,7 +16,7 @@ from core.agent import CommercialAgent
 
 
 from core.state_manager import ConversationState
-from tools.cart import add_product_to_cart
+#from tools.cart import add_product_to_cart
 from tools.contact import request_contact
 
 app = Flask(__name__)

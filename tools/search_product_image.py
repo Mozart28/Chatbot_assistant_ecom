@@ -1,10 +1,10 @@
 from retrieval.retriever import ProductRetriever
 from catalog.schema import Product
-import streamlit as st
+
 
 retriever = ProductRetriever(top_k=10)
 
-@st.cache_data
+
 def search_product_image(user_input: str):
     products = retriever.search(user_input)
     

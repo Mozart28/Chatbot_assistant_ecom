@@ -5,13 +5,15 @@ from tools.search_products import search_products
 from tools.search_product_image import search_product_image
 from tools.contact import request_contact
 from core.tools_schema import TOOLS
-from core.llm_client import llm_client
+#from core.llm_client import llm_client
+from core.llm_client import get_llm_client
+
 from tools.cart import add_product_to_cart
 
 
 class CommercialAgent:
     def __init__(self, state=None):
-        self.client = llm_client
+        self.client = None
         self.memory = ConversationMemory()
         self.state = state
         self.current_product = None
@@ -225,7 +227,8 @@ class CommercialAgent:
             })
 
         # First LLM call
-        response = self.client.chat_complete(
+        llm = get_llm_client()
+        response = llm.chat_complete(
             messages=messages,
             tools=TOOLS,
             tool_choice="auto",
@@ -306,7 +309,7 @@ class CommercialAgent:
             return cart_action
 
         # Second LLM call
-        final_response = self.client.chat_complete(
+        final_response = llm.chat_complete(
             messages=messages,
             temperature=0.4
         )

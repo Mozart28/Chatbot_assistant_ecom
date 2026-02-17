@@ -1,7 +1,7 @@
 {
-  "total_tokens": 81992,
-  "total_cost": 0.16356600000000002,
-  "requests_count": 22,
+  "total_tokens": 147576,
+  "total_cost": 0.29473399999999994,
+  "requests_count": 37,
   "by_model": {
     "meta-llama/Llama-3.2-3B-Instruct": {
       "tokens": 209,
@@ -9,9 +9,9 @@
       "requests": 3
     },
     "mistral-small-latest": {
-      "tokens": 81783,
-      "cost": 0.16356600000000002,
-      "requests": 19
+      "tokens": 147367,
+      "cost": 0.29473399999999994,
+      "requests": 34
     }
   },
   "by_date": {
@@ -19,6 +19,11 @@
       "tokens": 81992,
       "cost": 0.16356600000000002,
       "requests": 22
+    },
+    "2026-02-17": {
+      "tokens": 65584,
+      "cost": 0.131168,
+      "requests": 15
     }
   },
   "last_reset": "2026-02-16T22:48:00.071629"

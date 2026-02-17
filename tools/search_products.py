@@ -2,11 +2,10 @@
 from retrieval.retriever import ProductRetriever
 from catalog.validator import products_to_context
 from rapidfuzz import fuzz
-import streamlit as st
+
 
 retriever = ProductRetriever()
 
-@st.cache_data
 def search_products(query: str) -> str:
     """
     Recherche des produits ET documents PDF correspondant à la requête.
