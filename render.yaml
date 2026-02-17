@@ -1,0 +1,40 @@
+
+services:
+  - type: web
+    name: smartshop-chatbot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn backend_api:app
+    envVars:
+      - key: MISTRAL_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: PINECONE_API_KEY
+        sync: false
+      - key: PORT
+        value: 5002
+
+  - type: web
+    name: smartshop-admin
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn admin_backend_api:app
+    envVars:
+      - key: MISTRAL_API_KEY
+        sync: false
+      - key: ADMIN_SECRET_KEY
+        sync: false
+      - key: PORT
+        value: 5003
+
+  - type: web
+    name: smartshop-superadmin
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn superadmin_backend:app
+    envVars:
+      - key: SUPERADMIN_SECRET_KEY
+        sync: false
+      - key: PORT
+        value: 5004
