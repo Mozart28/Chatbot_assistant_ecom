@@ -1,5 +1,5 @@
 """
-Backend API for SmartShop React Frontend
+Backend API for SmartShop React Frontend - PRODUCTION READY
 This connects your existing Streamlit agent logic to the React frontend via REST API
 """
 
@@ -13,10 +13,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # Import your existing components
 from core.agent import CommercialAgent
-
-
 from core.state_manager import ConversationState
-#from tools.cart import add_product_to_cart
 from tools.contact import request_contact
 
 app = Flask(__name__)
@@ -70,6 +67,8 @@ def chat():
         
     except Exception as e:
         print(f"Error in chat endpoint: {e}")
+        import traceback
+        traceback.print_exc()
         return jsonify({
             'error': str(e),
             'message': 'Désolé, une erreur s\'est produite.'
@@ -239,19 +238,42 @@ def health():
     """Health check"""
     return jsonify({
         'status': 'ok',
+        'service': 'smartshop-chatbot',
         'active_conversations': len(conversations)
     })
 
 
+@app.route('/', methods=['GET'])
+def root():
+    """Root endpoint"""
+    return jsonify({
+        'service': 'SmartShop Chatbot API',
+        'status': 'running',
+        'endpoints': {
+            'health': '/api/health',
+            'chat': '/api/chat',
+            'cart': '/api/cart'
+        }
+    })
+
+
 if __name__ == '__main__':
+    print("=" * 60)
     print("🚀 SmartShop Backend API starting...")
+    print("=" * 60)
     print("📡 Frontend should connect to: http://localhost:5002")
     print("🔧 CORS enabled for React frontend")
-    print("")
+    print("=" * 60)
+    
     port = int(os.environ.get("PORT", 5002))
+    is_production = os.environ.get('RENDER') or os.environ.get('PRODUCTION')
+    
+    print(f"🌍 Environment: {'Production' if is_production else 'Development'}")
+    print(f"🔌 Port: {port}")
+    print("=" * 60)
+    
     app.run(
         host='0.0.0.0',
         port=port,
-        debug=True
+        debug=not is_production  # False in production
     )
-

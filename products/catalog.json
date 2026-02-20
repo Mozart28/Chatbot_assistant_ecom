@@ -108,16 +108,6 @@
     "in_stock": true,
     "stock_quantity": 14,
     "image_url": "https://ae01.alicdn.com/kf/S733a65c2931f44b1ac9685979ab33866X.jpg_640x640q90.jpg"
-  },
-  {
-    "id": "AIR-001",
-    "name": "AIRMAX 400",
-    "category": "baskets",
-    "description": "Baskets sport class dernier model",
-    "price": 25000.0,
-    "currency": "FCFAIn_stock: True",
-    "in_stock": true,
-    "stock_quantity": 2,
-    "image_url": "https://noirfonce.eu/cdn/shop/files/Nike_Air_Max_Plus_Black_FN6949-400.jpg?v=1723383962"
   }
+  
 ]
